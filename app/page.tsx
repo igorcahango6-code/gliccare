@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col items-center justify-center bg-zinc-50 px-6 text-center dark:bg-black">
@@ -12,9 +14,20 @@ export default function Home() {
           Seu diário digital de glicemia, insulina, alimentação e mais —
           simples, no computador ou no celular.
         </p>
-        <p className="mt-4 rounded-full bg-teal-50 px-4 py-1.5 text-sm font-medium text-teal-700 dark:bg-teal-950 dark:text-teal-300">
-          Em construção
-        </p>
+        <div className="mt-4 flex w-full flex-col gap-3 sm:flex-row sm:justify-center">
+          <Link
+            href="/signup"
+            className="rounded-lg bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-teal-700"
+          >
+            Criar conta
+          </Link>
+          <Link
+            href="/login"
+            className="rounded-lg border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-900"
+          >
+            Entrar
+          </Link>
+        </div>
       </div>
     </div>
   );
