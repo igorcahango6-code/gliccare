@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 
+type TestResult = "ok" | "error" | null;
+
 function isIosDevice() {
   return /iphone|ipad|ipod/i.test(window.navigator.userAgent);
 }
@@ -18,6 +20,7 @@ export function NotificationPermissionButton() {
     null,
   );
   const [needsIosInstall, setNeedsIosInstall] = useState(false);
+  const [testResult, setTestResult] = useState<TestResult>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -50,9 +53,40 @@ export function NotificationPermissionButton() {
 
   if (permission === "granted") {
     return (
-      <p className="rounded-xl border border-teal-200 bg-teal-50 p-3 text-sm text-teal-800 dark:border-teal-900 dark:bg-teal-950 dark:text-teal-300">
-        Notificações permitidas neste navegador.
-      </p>
+      <div className="flex flex-col gap-2">
+        <p className="rounded-xl border border-teal-200 bg-teal-50 p-3 text-sm text-teal-800 dark:border-teal-900 dark:bg-teal-950 dark:text-teal-300">
+          Notificações permitidas neste navegador.
+        </p>
+        <button
+          type="button"
+          onClick={() => {
+            try {
+              new Notification("GlicCare", {
+                body: "Notificação de teste — se você está vendo isso, está tudo funcionando!",
+              });
+              setTestResult("ok");
+            } catch {
+              setTestResult("error");
+            }
+          }}
+          className="self-start rounded-lg border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-900"
+        >
+          Testar notificação agora
+        </button>
+        {testResult === "ok" && (
+          <p className="text-xs text-zinc-500 dark:text-zinc-500">
+            Comando enviado. Apareceu uma notificação na tela (ou no canto do
+            sistema)? Se não apareceu nada, o problema é nas configurações de
+            notificação do sistema operacional ou do navegador para este
+            site, não no GlicCare.
+          </p>
+        )}
+        {testResult === "error" && (
+          <p className="text-xs text-red-600 dark:text-red-400">
+            O navegador recusou enviar a notificação de teste.
+          </p>
+        )}
+      </div>
     );
   }
 
