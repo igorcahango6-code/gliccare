@@ -4,6 +4,7 @@ import { logout } from "@/lib/actions/auth";
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Início", icon: "🏠" },
   { href: "/glicemia", label: "Glicemia", icon: "🩸" },
+  { href: "/graficos", label: "Gráficos", icon: "📈" },
   { href: "/novo", label: "Novo", icon: "➕" },
   { href: "/configuracoes", label: "Config", icon: "⚙️" },
 ];
