@@ -11,6 +11,7 @@ export function TextField({
   defaultValue,
   step,
   min,
+  max,
   placeholder,
 }: {
   label: string;
@@ -20,6 +21,7 @@ export function TextField({
   defaultValue?: string | number;
   step?: string;
   min?: string;
+  max?: string;
   placeholder?: string;
 }) {
   return (
@@ -35,6 +37,7 @@ export function TextField({
         defaultValue={defaultValue}
         step={step}
         min={min}
+        max={max}
         placeholder={placeholder}
         className={inputClass}
       />

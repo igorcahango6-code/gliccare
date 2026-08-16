@@ -7,6 +7,7 @@ import { GlucoseTrendChart } from "@/components/charts/GlucoseTrendChart";
 import { PrintButton } from "@/components/PrintButton";
 import { MonthPicker } from "@/components/MonthPicker";
 import { resolvePeriod } from "@/lib/utils/period";
+import { calculateAge } from "@/lib/utils/age";
 import type { TimelineEntry } from "@/lib/queries/timeline";
 
 const PERIODS = [
@@ -119,6 +120,8 @@ export default async function RelatorioPage({
       <div className="hidden flex-col gap-1 print:flex">
         <h1 className="text-xl font-semibold text-zinc-900">
           Relatório GlicCare — {user?.user_metadata?.full_name ?? user?.email}
+          {user?.user_metadata?.birth_date &&
+            ` · ${calculateAge(user.user_metadata.birth_date)} anos`}
         </h1>
         <p className="text-sm capitalize text-zinc-600">
           Período: {period.label} · Gerado em{" "}

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getRecentEntries } from "@/lib/queries/timeline";
 import { TimelineItem } from "@/components/TimelineItem";
-import { NameSetupForm } from "@/components/NameSetupForm";
+import { ProfileSetupForm } from "@/components/ProfileSetupForm";
 import { AlertBanner } from "@/components/AlertBanner";
 import { SuccessToast } from "@/components/SuccessToast";
 import { getMyThresholds } from "@/lib/queries/thresholds";
@@ -19,12 +19,13 @@ export default async function DashboardPage({
   } = await supabase.auth.getUser();
   const entries = await getRecentEntries(20);
   const fullName = user?.user_metadata?.full_name as string | undefined;
+  const birthDate = user?.user_metadata?.birth_date as string | undefined;
   const { salvo, excluido } = await searchParams;
 
-  if (!fullName) {
+  if (!fullName || !birthDate) {
     return (
       <div className="mx-auto w-full max-w-md">
-        <NameSetupForm />
+        <ProfileSetupForm />
       </div>
     );
   }

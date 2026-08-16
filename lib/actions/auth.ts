@@ -13,18 +13,19 @@ export async function signup(
   formData: FormData,
 ): Promise<AuthState> {
   const name = String(formData.get("name") ?? "").trim();
+  const birthDate = String(formData.get("birth_date") ?? "").trim();
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
 
-  if (!name || !email || !password) {
-    return { error: "Preencha nome, e-mail e senha." };
+  if (!name || !birthDate || !email || !password) {
+    return { error: "Preencha nome, data de nascimento, e-mail e senha." };
   }
 
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: { data: { full_name: name } },
+    options: { data: { full_name: name, birth_date: birthDate } },
   });
 
   if (error) {
@@ -70,24 +71,25 @@ export async function logout() {
   redirect("/login");
 }
 
-export async function updateName(
+export async function updateProfile(
   _prevState: AuthState,
   formData: FormData,
 ): Promise<AuthState> {
   const name = String(formData.get("name") ?? "").trim();
+  const birthDate = String(formData.get("birth_date") ?? "").trim();
 
-  if (!name) {
-    return { error: "Digite um nome." };
+  if (!name || !birthDate) {
+    return { error: "Preencha nome e data de nascimento." };
   }
 
   const supabase = await createClient();
   const { error } = await supabase.auth.updateUser({
-    data: { full_name: name },
+    data: { full_name: name, birth_date: birthDate },
   });
 
   if (error) {
     return { error: error.message };
   }
 
-  redirect("/dashboard");
+  redirect("/dashboard?salvo=1");
 }

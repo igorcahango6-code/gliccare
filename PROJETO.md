@@ -61,7 +61,9 @@ Também fazem parte do registro:
 
 ### 4.9 Autenticação e contas
 - Cadastro e login por e-mail e senha.
+- Cadastro também coleta nome e data de nascimento (a idade é calculada automaticamente a partir da data, para não ficar desatualizada com o tempo).
 - Cada usuário só acessa os próprios dados.
+- Nome e data de nascimento podem ser editados a qualquer momento em Configurações > Meu perfil.
 
 ### 4.10 Privacidade e segurança
 - Nível básico nesta versão: dados privados por usuário, senha protegida com boas práticas de segurança (criptografia de senha, HTTPS).

@@ -29,6 +29,21 @@ export default function SignupPage() {
       </div>
 
       <div className="flex flex-col gap-1.5">
+        <label htmlFor="birth_date" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+          Data de nascimento
+        </label>
+        <input
+          id="birth_date"
+          name="birth_date"
+          type="date"
+          required
+          max={new Date().toISOString().slice(0, 10)}
+          autoComplete="bday"
+          className="rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-teal-600 dark:border-zinc-700 dark:bg-zinc-900"
+        />
+      </div>
+
+      <div className="flex flex-col gap-1.5">
         <label htmlFor="email" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
           E-mail
         </label>
