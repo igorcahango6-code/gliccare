@@ -11,11 +11,7 @@ type ReminderRow = {
   is_active: boolean;
 };
 
-function currentHHMM(date: Date) {
-  return `${String(date.getHours()).padStart(2, "0")}:${String(
-    date.getMinutes(),
-  ).padStart(2, "0")}`;
-}
+const MATCH_WINDOW_MS = 90_000;
 
 export function ReminderNotifier() {
   const firedRef = useRef<Set<string>>(new Set());
@@ -36,15 +32,20 @@ export function ReminderNotifier() {
       if (!reminders) return;
 
       const now = new Date();
-      const hhmm = currentHHMM(now);
       const day = now.getDay();
       const todayKey = now.toISOString().slice(0, 10);
 
       (reminders as ReminderRow[]).forEach((reminder) => {
         if (!reminder.days_of_week.includes(day)) return;
-        if (reminder.time_of_day.slice(0, 5) !== hhmm) return;
 
-        const fireKey = `${reminder.id}-${todayKey}-${hhmm}`;
+        const [hours, minutes] = reminder.time_of_day.split(":").map(Number);
+        const target = new Date(now);
+        target.setHours(hours, minutes, 0, 0);
+
+        const diffMs = now.getTime() - target.getTime();
+        if (diffMs < 0 || diffMs > MATCH_WINDOW_MS) return;
+
+        const fireKey = `${reminder.id}-${todayKey}`;
         if (firedRef.current.has(fireKey)) return;
         firedRef.current.add(fireKey);
 
@@ -53,8 +54,19 @@ export function ReminderNotifier() {
     }
 
     checkReminders();
-    const interval = setInterval(checkReminders, 20_000);
-    return () => clearInterval(interval);
+    const interval = setInterval(checkReminders, 15_000);
+
+    function onVisible() {
+      if (document.visibilityState === "visible") checkReminders();
+    }
+    document.addEventListener("visibilitychange", onVisible);
+    window.addEventListener("focus", checkReminders);
+
+    return () => {
+      clearInterval(interval);
+      document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("focus", checkReminders);
+    };
   }, []);
 
   return null;
