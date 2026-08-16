@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { ReminderForm } from "@/components/ReminderForm";
 import { ReminderRow } from "@/components/ReminderRow";
 import { NotificationPermissionButton } from "@/components/NotificationPermissionButton";
+import { ReminderDebugPanel } from "@/components/ReminderDebugPanel";
 
 export default async function LembretesPage() {
   const supabase = await createClient();
@@ -26,6 +27,8 @@ export default async function LembretesPage() {
       </div>
 
       <NotificationPermissionButton />
+
+      <ReminderDebugPanel />
 
       <ReminderForm />
 
