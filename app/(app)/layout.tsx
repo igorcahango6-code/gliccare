@@ -74,10 +74,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <Link
               key={item.href}
               href={item.href}
-              className="flex flex-1 flex-col items-center gap-0.5 py-2 text-xs font-medium text-zinc-600 dark:text-zinc-400"
+              className="flex min-w-0 flex-1 flex-col items-center gap-0.5 py-2 text-[11px] font-medium text-zinc-600 dark:text-zinc-400"
             >
               <span className="text-lg leading-none">{item.icon}</span>
-              {item.label}
+              <span className="w-full truncate text-center">{item.label}</span>
             </Link>
           ))}
         </nav>

@@ -22,7 +22,7 @@ export default function NovoRegistroPage() {
           <Link
             key={entry.href}
             href={entry.href}
-            className="flex flex-col items-center gap-2 rounded-xl border border-zinc-200 bg-white p-4 text-center text-sm font-medium text-zinc-700 transition-colors hover:border-teal-600 hover:text-teal-700 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:text-teal-400"
+            className="flex min-w-0 flex-col items-center gap-2 rounded-xl border border-zinc-200 bg-white p-4 text-center text-sm font-medium text-zinc-700 transition-colors hover:border-teal-600 hover:text-teal-700 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:text-teal-400"
           >
             <span className="text-2xl">{entry.icon}</span>
             {entry.label}
