@@ -5,6 +5,8 @@ import { createClient } from "@/lib/supabase/server";
 import { getMyThresholds } from "@/lib/queries/thresholds";
 import { GlucoseTrendChart } from "@/components/charts/GlucoseTrendChart";
 import { PrintButton } from "@/components/PrintButton";
+import { MonthPicker } from "@/components/MonthPicker";
+import { resolvePeriod } from "@/lib/utils/period";
 import type { TimelineEntry } from "@/lib/queries/timeline";
 
 const PERIODS = [
@@ -27,15 +29,10 @@ const CATEGORY_LABELS: Record<TimelineEntry["entry_type"], string> = {
 export default async function RelatorioPage({
   searchParams,
 }: {
-  searchParams: Promise<{ dias?: string }>;
+  searchParams: Promise<{ dias?: string; mes?: string }>;
 }) {
-  const { dias: diasParam } = await searchParams;
-  const dias = PERIODS.some((p) => String(p.dias) === diasParam)
-    ? Number(diasParam)
-    : 30;
-
-  const since = new Date();
-  since.setDate(since.getDate() - dias);
+  const { dias: diasParam, mes } = await searchParams;
+  const period = resolvePeriod({ dias: diasParam, mes });
 
   const supabase = await createClient();
   const [
@@ -49,7 +46,8 @@ export default async function RelatorioPage({
     supabase
       .from("diary_timeline")
       .select("*")
-      .gte("occurred_at", since.toISOString())
+      .gte("occurred_at", period.since.toISOString())
+      .lt("occurred_at", period.until.toISOString())
       .order("occurred_at", { ascending: true }),
     getMyThresholds(),
   ]);
@@ -96,29 +94,34 @@ export default async function RelatorioPage({
           Relatório
         </h1>
         <div className="flex flex-wrap items-center gap-2">
-          {PERIODS.map((period) => (
-            <Link
-              key={period.dias}
-              href={`/relatorio?dias=${period.dias}`}
-              className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
-                dias === period.dias
-                  ? "bg-teal-600 text-white"
-                  : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800"
-              }`}
-            >
-              {period.label}
-            </Link>
-          ))}
+          {!period.isMonth &&
+            PERIODS.map((p) => (
+              <Link
+                key={p.dias}
+                href={`/relatorio?dias=${p.dias}`}
+                className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
+                  period.label === p.label
+                    ? "bg-teal-600 text-white"
+                    : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800"
+                }`}
+              >
+                {p.label}
+              </Link>
+            ))}
           <PrintButton />
         </div>
+      </div>
+
+      <div className="print:hidden">
+        <MonthPicker basePath="/relatorio" currentMonth={mes} isMonth={period.isMonth} />
       </div>
 
       <div className="hidden flex-col gap-1 print:flex">
         <h1 className="text-xl font-semibold text-zinc-900">
           Relatório GlicCare — {user?.user_metadata?.full_name ?? user?.email}
         </h1>
-        <p className="text-sm text-zinc-600">
-          Período: últimos {dias} dias · Gerado em{" "}
+        <p className="text-sm capitalize text-zinc-600">
+          Período: {period.label} · Gerado em{" "}
           {format(new Date(), "dd/MM/yyyy", { locale: ptBR })}
         </p>
       </div>
