@@ -4,16 +4,22 @@ import { getRecentEntries } from "@/lib/queries/timeline";
 import { TimelineItem } from "@/components/TimelineItem";
 import { NameSetupForm } from "@/components/NameSetupForm";
 import { AlertBanner } from "@/components/AlertBanner";
+import { SuccessToast } from "@/components/SuccessToast";
 import { getMyThresholds } from "@/lib/queries/thresholds";
 import { getAlertStatus } from "@/lib/utils/thresholds";
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ salvo?: string; excluido?: string }>;
+}) {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
   const entries = await getRecentEntries(20);
   const fullName = user?.user_metadata?.full_name as string | undefined;
+  const { salvo, excluido } = await searchParams;
 
   if (!fullName) {
     return (
@@ -40,6 +46,9 @@ export default async function DashboardPage() {
           Aqui está o seu diário mais recente.
         </p>
       </div>
+
+      {salvo === "1" && <SuccessToast message="Registro salvo com sucesso." />}
+      {excluido === "1" && <SuccessToast message="Registro excluído." />}
 
       <AlertBanner status={latestGlucoseStatus} />
 

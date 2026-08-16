@@ -21,10 +21,10 @@ function firstIssueMessage(error: { issues: { message: string }[] }) {
   return error.issues[0]?.message ?? "Dados inválidos.";
 }
 
-async function afterSave() {
+async function afterSave(status: "salvo" | "excluido" = "salvo") {
   revalidatePath("/dashboard");
   revalidatePath("/glicemia");
-  redirect("/dashboard");
+  redirect(`/dashboard?${status}=1`);
 }
 
 async function doCreate(
@@ -84,7 +84,7 @@ export async function updateGlucoseReading(
 
 export async function deleteGlucoseReading(formData: FormData) {
   await doDelete("glucose_readings", formData);
-  await afterSave();
+  await afterSave("excluido");
 }
 
 export async function createInsulinEntry(
@@ -107,7 +107,7 @@ export async function updateInsulinEntry(
 
 export async function deleteInsulinEntry(formData: FormData) {
   await doDelete("insulin_entries", formData);
-  await afterSave();
+  await afterSave("excluido");
 }
 
 export async function createMeal(
@@ -130,7 +130,7 @@ export async function updateMeal(
 
 export async function deleteMeal(formData: FormData) {
   await doDelete("meals", formData);
-  await afterSave();
+  await afterSave("excluido");
 }
 
 export async function createActivity(
@@ -153,7 +153,7 @@ export async function updateActivity(
 
 export async function deleteActivity(formData: FormData) {
   await doDelete("activities", formData);
-  await afterSave();
+  await afterSave("excluido");
 }
 
 export async function createOralMedication(
@@ -184,7 +184,7 @@ export async function updateOralMedication(
 
 export async function deleteOralMedication(formData: FormData) {
   await doDelete("oral_medications", formData);
-  await afterSave();
+  await afterSave("excluido");
 }
 
 export async function createWeightEntry(
@@ -207,7 +207,7 @@ export async function updateWeightEntry(
 
 export async function deleteWeightEntry(formData: FormData) {
   await doDelete("weight_entries", formData);
-  await afterSave();
+  await afterSave("excluido");
 }
 
 export async function createBloodPressureEntry(
@@ -238,7 +238,7 @@ export async function updateBloodPressureEntry(
 
 export async function deleteBloodPressureEntry(formData: FormData) {
   await doDelete("blood_pressure_entries", formData);
-  await afterSave();
+  await afterSave("excluido");
 }
 
 export async function createNote(
@@ -261,5 +261,5 @@ export async function updateNote(
 
 export async function deleteNote(formData: FormData) {
   await doDelete("notes", formData);
-  await afterSave();
+  await afterSave("excluido");
 }
