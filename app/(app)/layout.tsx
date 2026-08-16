@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { logout } from "@/lib/actions/auth";
+import { ReminderNotifier } from "@/components/ReminderNotifier";
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Início", icon: "🏠" },
@@ -12,6 +13,7 @@ const NAV_ITEMS = [
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-1 flex-col md:flex-row">
+      <ReminderNotifier />
       <aside className="hidden md:flex md:w-56 md:flex-col md:border-r md:border-zinc-200 dark:md:border-zinc-800">
         <div className="flex items-center gap-2 px-4 py-4">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-sm font-bold text-white">
