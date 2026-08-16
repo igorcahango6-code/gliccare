@@ -57,8 +57,8 @@ export function ReminderRow({ reminder }: { reminder: Reminder }) {
   }
 
   return (
-    <div className="flex items-center justify-between rounded-xl border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-950">
-      <div className="flex flex-col">
+    <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-950">
+      <div className="flex min-w-0 flex-col">
         <span className="text-sm font-medium text-zinc-900 dark:text-zinc-50">
           {reminder.label} · {reminder.time_of_day.slice(0, 5)}
         </span>
@@ -70,7 +70,7 @@ export function ReminderRow({ reminder }: { reminder: Reminder }) {
             .join(", ")}
         </span>
       </div>
-      <div className="flex items-center gap-1">
+      <div className="flex flex-wrap items-center justify-end gap-1">
         <button
           type="button"
           onClick={() => setEditing(true)}
