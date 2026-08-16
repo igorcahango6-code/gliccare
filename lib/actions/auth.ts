@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 export type AuthState = {
   error?: string;
   info?: string;
+  success?: boolean;
 } | undefined;
 
 export async function signup(
@@ -38,7 +39,7 @@ export async function signup(
     };
   }
 
-  redirect("/dashboard");
+  return { success: true };
 }
 
 export async function login(
@@ -62,7 +63,7 @@ export async function login(
     return { error: "E-mail ou senha incorretos." };
   }
 
-  redirect("/dashboard");
+  return { success: true };
 }
 
 export async function logout() {

@@ -1,11 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { signup } from "@/lib/actions/auth";
 
 export default function SignupPage() {
   const [state, action, pending] = useActionState(signup, undefined);
+
+  useEffect(() => {
+    if (state?.success) {
+      window.location.href = "/dashboard";
+    }
+  }, [state]);
 
   return (
     <form action={action} className="flex flex-col gap-4">
