@@ -3,6 +3,9 @@ import { createClient } from "@/lib/supabase/server";
 import { getRecentEntries } from "@/lib/queries/timeline";
 import { TimelineItem } from "@/components/TimelineItem";
 import { NameSetupForm } from "@/components/NameSetupForm";
+import { AlertBanner } from "@/components/AlertBanner";
+import { getMyThresholds } from "@/lib/queries/thresholds";
+import { getAlertStatus } from "@/lib/utils/thresholds";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -20,6 +23,13 @@ export default async function DashboardPage() {
     );
   }
 
+  const thresholds = await getMyThresholds();
+  const latestGlucose = entries.find((entry) => entry.entry_type === "glucose");
+  const latestGlucoseStatus =
+    latestGlucose?.value != null
+      ? getAlertStatus(latestGlucose.value, thresholds?.min_mgdl, thresholds?.max_mgdl)
+      : null;
+
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-6">
       <div className="flex flex-col gap-1">
@@ -30,6 +40,8 @@ export default async function DashboardPage() {
           Aqui está o seu diário mais recente.
         </p>
       </div>
+
+      <AlertBanner status={latestGlucoseStatus} />
 
       <Link
         href="/novo"

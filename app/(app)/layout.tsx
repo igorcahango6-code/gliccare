@@ -5,6 +5,7 @@ const NAV_ITEMS = [
   { href: "/dashboard", label: "Início", icon: "🏠" },
   { href: "/glicemia", label: "Glicemia", icon: "🩸" },
   { href: "/novo", label: "Novo", icon: "➕" },
+  { href: "/configuracoes", label: "Config", icon: "⚙️" },
 ];
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
