@@ -14,7 +14,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-1 flex-col md:flex-row">
       <ReminderNotifier />
-      <aside className="hidden md:flex md:w-56 md:flex-col md:border-r md:border-zinc-200 dark:md:border-zinc-800">
+      <aside className="hidden md:flex md:w-56 md:flex-col md:border-r md:border-zinc-200 print:hidden dark:md:border-zinc-800">
         <div className="flex items-center gap-2 px-4 py-4">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-sm font-bold text-white">
             GC
@@ -46,7 +46,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </aside>
 
       <div className="flex flex-1 flex-col">
-        <header className="flex items-center justify-between border-b border-zinc-200 px-4 py-3 md:hidden dark:border-zinc-800">
+        <header className="flex items-center justify-between border-b border-zinc-200 px-4 py-3 print:hidden md:hidden dark:border-zinc-800">
           <div className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-sm font-bold text-white">
               GC
@@ -69,7 +69,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           {children}
         </main>
 
-        <nav className="fixed inset-x-0 bottom-0 flex border-t border-zinc-200 bg-white md:hidden dark:border-zinc-800 dark:bg-zinc-950">
+        <nav className="fixed inset-x-0 bottom-0 flex border-t border-zinc-200 bg-white print:hidden md:hidden dark:border-zinc-800 dark:bg-zinc-950">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}

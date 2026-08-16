@@ -74,40 +74,42 @@ export default async function GlicemiaPage() {
             const highlight = status === "low" || status === "high";
 
             return (
-              <li
-                key={reading.id}
-                className={`flex items-center justify-between rounded-xl border p-3 ${
-                  highlight
-                    ? STATUS_STYLES[status]
-                    : "border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950"
-                }`}
-              >
-                <div className="flex flex-col">
-                  <div className="flex items-center gap-2">
-                    <span className="text-base font-semibold text-zinc-900 dark:text-zinc-50">
-                      {reading.value_mgdl} mg/dL
+              <li key={reading.id}>
+                <Link
+                  href={`/glicemia/${reading.id}`}
+                  className={`flex items-center justify-between rounded-xl border p-3 transition-colors hover:border-teal-600 ${
+                    highlight
+                      ? STATUS_STYLES[status]
+                      : "border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950"
+                  }`}
+                >
+                  <div className="flex min-w-0 flex-col">
+                    <div className="flex items-center gap-2">
+                      <span className="text-base font-semibold text-zinc-900 dark:text-zinc-50">
+                        {reading.value_mgdl} mg/dL
+                      </span>
+                      {highlight && (
+                        <span
+                          className={`rounded-full px-2 py-0.5 text-xs font-medium text-white ${STATUS_BADGE[status]}`}
+                        >
+                          {STATUS_LABEL[status]}
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-xs text-zinc-500 dark:text-zinc-500">
+                      {format(new Date(reading.measured_at), "dd/MM 'às' HH:mm", {
+                        locale: ptBR,
+                      })}
+                      {" · "}
+                      {reading.method === "manual" ? "Manual" : "Sensor"}
                     </span>
-                    {highlight && (
-                      <span
-                        className={`rounded-full px-2 py-0.5 text-xs font-medium text-white ${STATUS_BADGE[status]}`}
-                      >
-                        {STATUS_LABEL[status]}
+                    {reading.notes && (
+                      <span className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                        {reading.notes}
                       </span>
                     )}
                   </div>
-                  <span className="text-xs text-zinc-500 dark:text-zinc-500">
-                    {format(new Date(reading.measured_at), "dd/MM 'às' HH:mm", {
-                      locale: ptBR,
-                    })}
-                    {" · "}
-                    {reading.method === "manual" ? "Manual" : "Sensor"}
-                  </span>
-                  {reading.notes && (
-                    <span className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-                      {reading.notes}
-                    </span>
-                  )}
-                </div>
+                </Link>
               </li>
             );
           })}

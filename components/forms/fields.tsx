@@ -131,7 +131,11 @@ export function FormError({ message }: { message?: string }) {
 }
 
 export function nowForDatetimeLocal() {
-  const now = new Date();
-  const offsetMs = now.getTimezoneOffset() * 60 * 1000;
-  return new Date(now.getTime() - offsetMs).toISOString().slice(0, 16);
+  return toDatetimeLocal(new Date().toISOString());
+}
+
+export function toDatetimeLocal(isoString: string) {
+  const date = new Date(isoString);
+  const offsetMs = date.getTimezoneOffset() * 60 * 1000;
+  return new Date(date.getTime() - offsetMs).toISOString().slice(0, 16);
 }

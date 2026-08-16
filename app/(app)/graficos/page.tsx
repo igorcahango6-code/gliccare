@@ -40,7 +40,7 @@ export default async function GraficosPage({
         <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
           Gráfico de glicemia
         </h1>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {PERIODS.map((period) => (
             <Link
               key={period.dias}
@@ -54,6 +54,12 @@ export default async function GraficosPage({
               {period.label}
             </Link>
           ))}
+          <Link
+            href="/relatorio"
+            className="rounded-full border border-teal-600 px-3 py-1 text-sm font-medium text-teal-700 transition-colors hover:bg-teal-50 dark:text-teal-400 dark:hover:bg-teal-950"
+          >
+            Relatório p/ médico
+          </Link>
         </div>
       </div>
 

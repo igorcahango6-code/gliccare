@@ -18,6 +18,12 @@ export default function ConfiguracoesPage() {
       >
         Lembretes
       </Link>
+      <Link
+        href="/relatorio"
+        className="rounded-xl border border-zinc-200 bg-white p-4 text-sm font-medium text-zinc-700 transition-colors hover:border-teal-600 hover:text-teal-700 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:text-teal-400"
+      >
+        Relatório para o médico
+      </Link>
     </div>
   );
 }
