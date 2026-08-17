@@ -15,6 +15,7 @@ const NAV_ITEMS = [
   { href: "/anotacoes/nova", label: "Anotações", icon: "📝" },
   { href: "/graficos", label: "Gráficos", icon: "📈" },
   { href: "/relatorio", label: "Relatório", icon: "📄" },
+  { href: "/configuracoes/lembretes", label: "Lembretes", icon: "⏰" },
   { href: "/configuracoes", label: "Configurações", icon: "⚙️" },
 ];
 

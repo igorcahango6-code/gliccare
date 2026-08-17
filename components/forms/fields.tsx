@@ -13,6 +13,7 @@ export function TextField({
   min,
   max,
   placeholder,
+  autoComplete,
 }: {
   label: string;
   name: string;
@@ -23,6 +24,7 @@ export function TextField({
   min?: string;
   max?: string;
   placeholder?: string;
+  autoComplete?: string;
 }) {
   return (
     <div className="flex flex-col gap-1.5">
@@ -39,6 +41,7 @@ export function TextField({
         min={min}
         max={max}
         placeholder={placeholder}
+        autoComplete={autoComplete}
         className={inputClass}
       />
     </div>
