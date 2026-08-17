@@ -1,13 +1,21 @@
 import Link from "next/link";
 import { logout } from "@/lib/actions/auth";
 import { ReminderNotifier } from "@/components/ReminderNotifier";
+import { MobileMenu } from "@/components/MobileMenu";
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Início", icon: "🏠" },
   { href: "/glicemia", label: "Glicemia", icon: "🩸" },
+  { href: "/insulina/nova", label: "Insulina", icon: "💉" },
+  { href: "/refeicoes/nova", label: "Refeições", icon: "🍽️" },
+  { href: "/atividades/nova", label: "Atividades físicas", icon: "🚶" },
+  { href: "/medicamentos/nova", label: "Medicamentos", icon: "💊" },
+  { href: "/peso/nova", label: "Peso", icon: "⚖️" },
+  { href: "/pressao/nova", label: "Pressão arterial", icon: "❤️" },
+  { href: "/anotacoes/nova", label: "Anotações", icon: "📝" },
   { href: "/graficos", label: "Gráficos", icon: "📈" },
-  { href: "/novo", label: "Novo", icon: "➕" },
-  { href: "/configuracoes", label: "Config", icon: "⚙️" },
+  { href: "/relatorio", label: "Relatório", icon: "📄" },
+  { href: "/configuracoes", label: "Configurações", icon: "⚙️" },
 ];
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
@@ -23,7 +31,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             GlicCare
           </span>
         </div>
-        <nav className="flex flex-1 flex-col gap-1 px-2">
+        <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-2">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
@@ -55,32 +63,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               GlicCare
             </span>
           </div>
-          <form action={logout}>
-            <button
-              type="submit"
-              className="rounded-lg px-3 py-1.5 text-sm font-medium text-zinc-600 transition-colors hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-900"
-            >
-              Sair
-            </button>
-          </form>
+          <MobileMenu items={NAV_ITEMS} />
         </header>
 
-        <main className="flex flex-1 flex-col px-4 py-6 pb-24 md:pb-6">
-          {children}
-        </main>
-
-        <nav className="fixed inset-x-0 bottom-0 flex border-t border-zinc-200 bg-white print:hidden md:hidden dark:border-zinc-800 dark:bg-zinc-950">
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="flex min-w-0 flex-1 flex-col items-center gap-0.5 py-2 text-[11px] font-medium text-zinc-600 dark:text-zinc-400"
-            >
-              <span className="text-lg leading-none">{item.icon}</span>
-              <span className="w-full truncate text-center">{item.label}</span>
-            </Link>
-          ))}
-        </nav>
+        <main className="flex flex-1 flex-col px-4 py-6">{children}</main>
       </div>
     </div>
   );
