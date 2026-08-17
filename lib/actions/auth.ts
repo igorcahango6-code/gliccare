@@ -18,6 +18,7 @@ export async function signup(
   const birthDate = String(formData.get("birth_date") ?? "").trim();
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
+  const avatarFile = formData.get("avatar");
 
   if (!name || !birthDate || !email || !password) {
     return { error: "Preencha nome, data de nascimento, e-mail e senha." };
@@ -34,10 +35,28 @@ export async function signup(
     return { error: error.message };
   }
 
-  if (!data.session) {
+  if (!data.session || !data.user) {
     return {
       info: "Cadastro criado! Verifique seu e-mail para confirmar a conta antes de entrar.",
     };
+  }
+
+  if (avatarFile instanceof File && avatarFile.size > 0) {
+    const extension = avatarFile.name.split(".").pop() || "jpg";
+    const path = `${data.user.id}/avatar.${extension}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("avatars")
+      .upload(path, avatarFile, { upsert: true });
+
+    if (!uploadError) {
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from("avatars").getPublicUrl(path);
+      await supabase.auth.updateUser({
+        data: { avatar_url: `${publicUrl}?v=${Date.now()}` },
+      });
+    }
   }
 
   return { success: true };
@@ -79,14 +98,38 @@ export async function updateProfile(
 ): Promise<AuthState> {
   const name = String(formData.get("name") ?? "").trim();
   const birthDate = String(formData.get("birth_date") ?? "").trim();
+  const avatarFile = formData.get("avatar");
 
   if (!name || !birthDate) {
     return { error: "Preencha nome e data de nascimento." };
   }
 
   const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { error: "Sessão expirada, entre novamente." };
+
+  let avatarUrl = user.user_metadata?.avatar_url as string | undefined;
+
+  if (avatarFile instanceof File && avatarFile.size > 0) {
+    const extension = avatarFile.name.split(".").pop() || "jpg";
+    const path = `${user.id}/avatar.${extension}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("avatars")
+      .upload(path, avatarFile, { upsert: true });
+
+    if (uploadError) return { error: uploadError.message };
+
+    const {
+      data: { publicUrl },
+    } = supabase.storage.from("avatars").getPublicUrl(path);
+    avatarUrl = `${publicUrl}?v=${Date.now()}`;
+  }
+
   const { error } = await supabase.auth.updateUser({
-    data: { full_name: name, birth_date: birthDate },
+    data: { full_name: name, birth_date: birthDate, avatar_url: avatarUrl },
   });
 
   if (error) {

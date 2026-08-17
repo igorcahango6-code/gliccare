@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { updateProfile } from "@/lib/actions/auth";
 import { FormError, SubmitButton, TextField } from "@/components/forms/fields";
+import { AvatarPicker } from "@/components/forms/AvatarPicker";
 
 export function ProfileSetupForm() {
   const [state, action, pending] = useActionState(updateProfile, undefined);
@@ -19,6 +20,7 @@ export function ProfileSetupForm() {
         Sua conta foi criada antes de pedirmos esses dados. Preencha para
         continuar — a idade ajuda a personalizar seu acompanhamento.
       </p>
+      <AvatarPicker />
       <TextField label="Nome" name="name" required placeholder="Ex: Igor Cahango" />
       <TextField
         label="Data de nascimento"

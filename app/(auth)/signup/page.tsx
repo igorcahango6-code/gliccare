@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useActionState, useEffect } from "react";
 import { signup } from "@/lib/actions/auth";
+import { AvatarPicker } from "@/components/forms/AvatarPicker";
 
 export default function SignupPage() {
   const [state, action, pending] = useActionState(signup, undefined);
@@ -18,6 +19,8 @@ export default function SignupPage() {
       <h1 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
         Criar conta
       </h1>
+
+      <AvatarPicker />
 
       <div className="flex flex-col gap-1.5">
         <label htmlFor="name" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
