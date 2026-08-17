@@ -4,7 +4,6 @@ import { ReminderNotifier } from "@/components/ReminderNotifier";
 import { MobileMenu } from "@/components/MobileMenu";
 
 const NAV_ITEMS = [
-  { href: "/dashboard", label: "Início", icon: "🏠" },
   { href: "/glicemia", label: "Glicemia", icon: "🩸" },
   { href: "/insulina/nova", label: "Insulina", icon: "💉" },
   { href: "/refeicoes/nova", label: "Refeições", icon: "🍽️" },
@@ -24,14 +23,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     <div className="flex flex-1 flex-col md:flex-row">
       <ReminderNotifier />
       <aside className="hidden md:flex md:w-56 md:flex-col md:border-r md:border-zinc-200 print:hidden dark:md:border-zinc-800">
-        <div className="flex items-center gap-2 px-4 py-4">
+        <Link href="/dashboard" className="flex items-center gap-2 px-4 py-4">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-sm font-bold text-white">
             GC
           </div>
           <span className="font-semibold text-zinc-900 dark:text-zinc-50">
             GlicCare
           </span>
-        </div>
+        </Link>
         <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-2">
           {NAV_ITEMS.map((item) => (
             <Link
@@ -56,14 +55,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
       <div className="flex flex-1 flex-col">
         <header className="flex items-center justify-between border-b border-zinc-200 px-4 py-3 print:hidden md:hidden dark:border-zinc-800">
-          <div className="flex items-center gap-2">
+          <Link href="/dashboard" className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-sm font-bold text-white">
               GC
             </div>
             <span className="font-semibold text-zinc-900 dark:text-zinc-50">
               GlicCare
             </span>
-          </div>
+          </Link>
           <MobileMenu items={NAV_ITEMS} />
         </header>
 
