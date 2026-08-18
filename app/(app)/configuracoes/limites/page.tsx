@@ -1,5 +1,6 @@
 import { getMyThresholds } from "@/lib/queries/thresholds";
 import { ThresholdsForm } from "@/components/ThresholdsForm";
+import { BackButton } from "@/components/BackButton";
 
 export default async function LimitesPage({
   searchParams,
@@ -11,6 +12,7 @@ export default async function LimitesPage({
 
   return (
     <div className="mx-auto w-full max-w-md">
+      <BackButton />
       <h1 className="mb-2 text-xl font-semibold text-zinc-900 dark:text-zinc-50">
         Limites de alerta
       </h1>

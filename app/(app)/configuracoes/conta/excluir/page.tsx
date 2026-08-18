@@ -1,8 +1,10 @@
 import { DeleteAccountForm } from "@/components/DeleteAccountForm";
+import { BackButton } from "@/components/BackButton";
 
 export default function ExcluirContaPage() {
   return (
     <div className="mx-auto w-full max-w-md">
+      <BackButton />
       <h1 className="mb-2 text-xl font-semibold text-red-700 dark:text-red-400">
         Excluir conta
       </h1>

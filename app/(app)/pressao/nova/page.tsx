@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { createBloodPressureEntry } from "@/lib/actions/entries";
+import { BackButton } from "@/components/BackButton";
 import {
   FormError,
   SubmitButton,
@@ -17,6 +18,7 @@ export default function NovaPressaoPage() {
 
   return (
     <div className="mx-auto w-full max-w-md">
+      <BackButton />
       <h1 className="mb-4 text-xl font-semibold text-zinc-900 dark:text-zinc-50">
         Nova medição de pressão arterial
       </h1>

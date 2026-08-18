@@ -3,6 +3,7 @@ import { ReminderForm } from "@/components/ReminderForm";
 import { ReminderRow } from "@/components/ReminderRow";
 import { NotificationPermissionButton } from "@/components/NotificationPermissionButton";
 import { ReminderDebugPanel } from "@/components/ReminderDebugPanel";
+import { BackButton } from "@/components/BackButton";
 
 export default async function LembretesPage() {
   const supabase = await createClient();
@@ -16,6 +17,7 @@ export default async function LembretesPage() {
   return (
     <div className="mx-auto flex w-full max-w-md flex-col gap-6">
       <div>
+        <BackButton />
         <h1 className="mb-2 text-xl font-semibold text-zinc-900 dark:text-zinc-50">
           Lembretes
         </h1>

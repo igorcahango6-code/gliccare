@@ -12,6 +12,7 @@ import {
   toDatetimeLocal,
 } from "@/components/forms/fields";
 import { DeleteButton } from "@/components/forms/DeleteButton";
+import { BackButton } from "@/components/BackButton";
 
 export function EditBloodPressureForm({
   entry,
@@ -30,9 +31,12 @@ export function EditBloodPressureForm({
 
   return (
     <div className="mx-auto flex w-full max-w-md flex-col gap-6">
-      <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
-        Editar medição de pressão arterial
-      </h1>
+      <div>
+        <BackButton />
+        <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
+          Editar medição de pressão arterial
+        </h1>
+      </div>
       <form action={action} className="flex flex-col gap-4 rounded-2xl bg-white p-4 shadow-sm dark:bg-zinc-900">
         <input type="hidden" name="id" value={entry.id} />
         <TextField

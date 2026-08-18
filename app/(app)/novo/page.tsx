@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ENTRY_STYLES } from "@/lib/entryStyles";
+import { BackButton } from "@/components/BackButton";
 
 const entryTypes = [
   { href: "/glicemia/nova", type: "glucose" as const },
@@ -15,6 +16,7 @@ const entryTypes = [
 export default function NovoRegistroPage() {
   return (
     <div className="mx-auto w-full max-w-2xl">
+      <BackButton />
       <h1 className="mb-4 text-xl font-semibold text-zinc-900 dark:text-zinc-50">
         O que você quer registrar?
       </h1>

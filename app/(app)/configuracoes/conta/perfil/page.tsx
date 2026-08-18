@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { AccountProfileForm } from "@/components/AccountProfileForm";
+import { BackButton } from "@/components/BackButton";
 
 export default async function EditarPerfilPage({
   searchParams,
@@ -15,6 +16,7 @@ export default async function EditarPerfilPage({
 
   return (
     <div className="mx-auto w-full max-w-md">
+      <BackButton />
       <h1 className="mb-6 text-xl font-semibold text-zinc-900 dark:text-zinc-50">
         Meu perfil
       </h1>
