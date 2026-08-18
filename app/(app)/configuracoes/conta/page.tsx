@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { BackButton } from "@/components/BackButton";
+import { interactiveCard } from "@/lib/ui";
 
-const cardLinkClass =
-  "rounded-2xl bg-white p-4 text-sm font-medium text-zinc-700 shadow-sm transition-shadow hover:shadow-md dark:bg-zinc-900 dark:text-zinc-300";
+const cardLinkClass = `rounded-2xl bg-white p-4 text-sm font-medium text-zinc-700 shadow-sm dark:bg-zinc-900 dark:text-zinc-300 ${interactiveCard}`;
 
 export default async function ContaPage({
   searchParams,
@@ -32,7 +32,7 @@ export default async function ContaPage({
       </Link>
       <Link
         href="/configuracoes/conta/excluir"
-        className="rounded-2xl bg-red-50 p-4 text-sm font-medium text-red-700 shadow-sm transition-shadow hover:shadow-md dark:bg-red-950 dark:text-red-400"
+        className={`rounded-2xl bg-red-50 p-4 text-sm font-medium text-red-700 shadow-sm dark:bg-red-950 dark:text-red-400 ${interactiveCard}`}
       >
         Excluir conta
       </Link>

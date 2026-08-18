@@ -6,13 +6,14 @@ import { ProfileSetupForm } from "@/components/ProfileSetupForm";
 import { SuccessToast } from "@/components/SuccessToast";
 import { Avatar } from "@/components/Avatar";
 import { GlucoseGauge } from "@/components/charts/GlucoseGauge";
+import { OnboardingTour } from "@/components/OnboardingTour";
 import { getMyThresholds } from "@/lib/queries/thresholds";
 import { getAlertStatus } from "@/lib/utils/thresholds";
 
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: Promise<{ salvo?: string; excluido?: string }>;
+  searchParams: Promise<{ salvo?: string; excluido?: string; tutorial?: string }>;
 }) {
   const supabase = await createClient();
   const {
@@ -21,7 +22,7 @@ export default async function DashboardPage({
   const entries = await getRecentEntries(20);
   const fullName = user?.user_metadata?.full_name as string | undefined;
   const birthDate = user?.user_metadata?.birth_date as string | undefined;
-  const { salvo, excluido } = await searchParams;
+  const { salvo, excluido, tutorial } = await searchParams;
 
   if (!fullName || !birthDate) {
     return (
@@ -38,8 +39,11 @@ export default async function DashboardPage({
       ? getAlertStatus(latestGlucose.value, thresholds?.min_mgdl, thresholds?.max_mgdl)
       : null;
 
+  const showOnboarding = !user?.user_metadata?.onboarding_seen || tutorial === "1";
+
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-4">
+      {showOnboarding && <OnboardingTour />}
       <div className="flex items-center gap-3">
         <Avatar name={fullName} avatarUrl={user?.user_metadata?.avatar_url} />
         <div className="flex flex-col gap-1">

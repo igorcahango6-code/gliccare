@@ -129,7 +129,12 @@ export async function updateProfile(
   }
 
   const { error } = await supabase.auth.updateUser({
-    data: { full_name: name, birth_date: birthDate, avatar_url: avatarUrl },
+    data: {
+      ...user.user_metadata,
+      full_name: name,
+      birth_date: birthDate,
+      avatar_url: avatarUrl,
+    },
   });
 
   if (error) {
@@ -188,6 +193,7 @@ export async function updateAccountProfile(
   const { error } = await supabase.auth.updateUser({
     ...(emailChanged ? { email } : {}),
     data: {
+      ...user.user_metadata,
       full_name: name,
       birth_date: birthDate,
       avatar_url: avatarUrl,
@@ -246,6 +252,18 @@ export async function updatePassword(
   if (error) return { error: error.message };
 
   redirect("/configuracoes/conta?senha=1");
+}
+
+export async function dismissOnboarding() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return;
+
+  await supabase.auth.updateUser({
+    data: { ...user.user_metadata, onboarding_seen: true },
+  });
 }
 
 export async function deleteAccount(
