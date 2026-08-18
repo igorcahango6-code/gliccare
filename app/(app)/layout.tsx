@@ -3,6 +3,7 @@ import { logout } from "@/lib/actions/auth";
 import { ReminderNotifier } from "@/components/ReminderNotifier";
 import { MobileMenu } from "@/components/MobileMenu";
 import { ENTRY_STYLES } from "@/lib/entryStyles";
+import { interactiveCard } from "@/lib/ui";
 
 const NAV_ITEMS = [
   { href: "/glicemia", ...ENTRY_STYLES.glucose },
@@ -57,10 +58,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center gap-3 rounded-2xl bg-white p-2.5 text-sm font-medium text-zinc-700 shadow-sm transition-shadow hover:shadow-md dark:bg-zinc-900 dark:text-zinc-300"
+              className={`group flex items-center gap-3 rounded-2xl bg-white p-2.5 text-sm font-medium text-zinc-700 shadow-sm dark:bg-zinc-900 dark:text-zinc-300 ${interactiveCard}`}
             >
               <span
-                className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-base leading-none ${item.badge}`}
+                className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-base leading-none transition-transform duration-150 group-hover:scale-110 ${item.badge}`}
               >
                 {item.icon}
               </span>
@@ -71,7 +72,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <form action={logout} className="p-3">
           <button
             type="submit"
-            className="w-full rounded-2xl bg-white p-2.5 text-left text-sm font-medium text-zinc-600 shadow-sm transition-shadow hover:shadow-md dark:bg-zinc-900 dark:text-zinc-400"
+            className={`w-full rounded-2xl bg-white p-2.5 text-left text-sm font-medium text-zinc-600 shadow-sm dark:bg-zinc-900 dark:text-zinc-400 ${interactiveCard}`}
           >
             Sair
           </button>

@@ -124,7 +124,7 @@ export function SubmitButton({
     <button
       type="submit"
       disabled={pending}
-      className="mt-2 rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-teal-700 disabled:opacity-60"
+      className="mt-2 rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white transition-all duration-150 hover:bg-teal-700 active:scale-[0.97] disabled:opacity-60 disabled:active:scale-100"
     >
       {children}
     </button>

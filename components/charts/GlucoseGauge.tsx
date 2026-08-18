@@ -55,8 +55,15 @@ export function GlucoseGauge({
               strokeWidth={STROKE}
               strokeLinecap="round"
               strokeDasharray={CIRCUMFERENCE}
-              strokeDashoffset={offset}
+              strokeDashoffset={CIRCUMFERENCE}
               transform={`rotate(-90 ${CENTER} ${CENTER})`}
+              style={
+                {
+                  "--ring-circumference": CIRCUMFERENCE,
+                  "--ring-offset": offset,
+                  animation: "ring-fill 1s ease-out forwards",
+                } as React.CSSProperties
+              }
             />
           )}
         </svg>
@@ -77,7 +84,9 @@ export function GlucoseGauge({
       </div>
       {value != null && status && (
         <span
-          className="rounded-full px-4 py-1 text-sm font-semibold text-white"
+          className={`rounded-full px-4 py-1 text-sm font-semibold text-white ${
+            status !== "normal" ? "animate-pulse" : ""
+          }`}
           style={{ backgroundColor: color }}
         >
           {STATUS_LABEL[status]}

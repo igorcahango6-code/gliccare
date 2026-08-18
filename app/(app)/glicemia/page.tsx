@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getMyThresholds } from "@/lib/queries/thresholds";
 import { getAlertStatus } from "@/lib/utils/thresholds";
 import { ENTRY_STYLES } from "@/lib/entryStyles";
+import { interactiveCard } from "@/lib/ui";
 
 const STATUS_BADGE: Record<string, string> = {
   low: "bg-blue-600",
@@ -45,7 +46,7 @@ export default async function GlicemiaPage() {
         </h1>
         <Link
           href="/glicemia/nova"
-          className="rounded-full bg-teal-600 px-4 py-1.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-teal-700"
+          className="rounded-full bg-teal-600 px-4 py-1.5 text-sm font-medium text-white shadow-sm transition-all duration-150 hover:bg-teal-700 active:scale-[0.97]"
         >
           + Nova
         </Link>
@@ -79,7 +80,7 @@ export default async function GlicemiaPage() {
               <li key={reading.id}>
                 <Link
                   href={`/glicemia/${reading.id}`}
-                  className={`flex items-center gap-3 rounded-2xl bg-white p-3 shadow-sm transition-shadow hover:shadow-md dark:bg-zinc-900 ${
+                  className={`flex items-center gap-3 rounded-2xl bg-white p-3 shadow-sm dark:bg-zinc-900 ${interactiveCard} ${
                     highlight ? STATUS_ACCENT[status] : ""
                   }`}
                 >

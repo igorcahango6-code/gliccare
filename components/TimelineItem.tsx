@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import type { TimelineEntry } from "@/lib/queries/timeline";
 import { ENTRY_STYLES } from "@/lib/entryStyles";
+import { interactiveCard } from "@/lib/ui";
 
 const EDIT_HREF: Record<TimelineEntry["entry_type"], string> = {
   glucose: "/glicemia",
@@ -22,7 +23,7 @@ export function TimelineItem({ entry }: { entry: TimelineEntry }) {
     <li>
       <Link
         href={`${EDIT_HREF[entry.entry_type]}/${entry.id}`}
-        className="flex items-start gap-3 rounded-2xl bg-white p-3 shadow-sm transition-shadow hover:shadow-md dark:bg-zinc-900"
+        className={`flex items-start gap-3 rounded-2xl bg-white p-3 shadow-sm dark:bg-zinc-900 ${interactiveCard}`}
       >
         <span
           className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg leading-none ${meta.badge}`}

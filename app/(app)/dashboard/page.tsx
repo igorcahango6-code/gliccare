@@ -75,7 +75,7 @@ export default async function DashboardPage({
 
       <Link
         href="/novo"
-        className="rounded-2xl bg-teal-600 px-4 py-3 text-center text-sm font-medium text-white shadow-sm transition-colors hover:bg-teal-700"
+        className="rounded-2xl bg-teal-600 px-4 py-3 text-center text-sm font-medium text-white shadow-sm transition-all duration-150 hover:bg-teal-700 hover:shadow-md active:scale-[0.98]"
       >
         + Novo registro
       </Link>

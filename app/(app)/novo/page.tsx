@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ENTRY_STYLES } from "@/lib/entryStyles";
 import { BackButton } from "@/components/BackButton";
+import { interactiveCard } from "@/lib/ui";
 
 const entryTypes = [
   { href: "/glicemia/nova", type: "glucose" as const },
@@ -27,10 +28,10 @@ export default function NovoRegistroPage() {
             <Link
               key={entry.href}
               href={entry.href}
-              className="flex min-w-0 flex-col items-center gap-2 rounded-2xl bg-white p-4 text-center text-sm font-medium text-zinc-700 shadow-sm transition-shadow hover:shadow-md dark:bg-zinc-900 dark:text-zinc-300"
+              className={`group flex min-w-0 flex-col items-center gap-2 rounded-2xl bg-white p-4 text-center text-sm font-medium text-zinc-700 shadow-sm dark:bg-zinc-900 dark:text-zinc-300 ${interactiveCard}`}
             >
               <span
-                className={`flex h-12 w-12 items-center justify-center rounded-full text-2xl leading-none ${meta.badge}`}
+                className={`flex h-12 w-12 items-center justify-center rounded-full text-2xl leading-none transition-transform duration-150 group-hover:scale-110 ${meta.badge}`}
               >
                 {meta.icon}
               </span>

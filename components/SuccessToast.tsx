@@ -19,7 +19,7 @@ export function SuccessToast({ message }: { message: string }) {
   if (!visible) return null;
 
   return (
-    <div className="flex items-center gap-2 rounded-xl border border-teal-200 bg-teal-50 p-3 text-sm font-medium text-teal-800 dark:border-teal-900 dark:bg-teal-950 dark:text-teal-300">
+    <div className="flex items-center gap-2 rounded-2xl bg-teal-50 p-3 text-sm font-medium text-teal-800 shadow-sm [animation:fade-in_0.25s_ease-out] dark:bg-teal-950 dark:text-teal-300">
       <span>✓</span>
       {message}
     </div>
