@@ -2,8 +2,10 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getMyThresholds } from "@/lib/queries/thresholds";
 import { GlucoseTrendChart } from "@/components/charts/GlucoseTrendChart";
+import { TimeInRangeBar } from "@/components/charts/TimeInRangeBar";
 import { MonthPicker } from "@/components/MonthPicker";
 import { resolvePeriod } from "@/lib/utils/period";
+import { getAlertStatus } from "@/lib/utils/thresholds";
 
 const PERIODS = [
   { dias: 7, label: "7 dias" },
@@ -31,6 +33,24 @@ export default async function GraficosPage({
   ]);
 
   if (error) throw new Error(error.message);
+
+  const hasThresholds = thresholds?.min_mgdl != null && thresholds?.max_mgdl != null;
+  const latest = readings.length > 0 ? readings[readings.length - 1] : null;
+
+  let timeInRange: { lowPct: number; inRangePct: number; highPct: number } | null = null;
+  if (hasThresholds && readings.length > 0) {
+    const counts = { low: 0, normal: 0, high: 0 };
+    readings.forEach((r) => {
+      const status = getAlertStatus(r.value_mgdl, thresholds!.min_mgdl, thresholds!.max_mgdl);
+      if (status) counts[status] += 1;
+    });
+    const total = readings.length;
+    timeInRange = {
+      lowPct: Math.round((counts.low / total) * 100),
+      inRangePct: Math.round((counts.normal / total) * 100),
+      highPct: Math.round((counts.high / total) * 100),
+    };
+  }
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-4">
@@ -75,12 +95,36 @@ export default async function GraficosPage({
           Nenhuma medição de glicemia nesse período.
         </p>
       ) : (
-        <div className="rounded-2xl bg-white p-4 shadow-sm dark:bg-zinc-900">
+        <div className="flex flex-col gap-4 rounded-2xl bg-white p-4 shadow-sm dark:bg-zinc-900">
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">
+              Última glicemia: {latest?.value_mgdl} mg/dL
+            </span>
+            <Link
+              href="/glicemia/nova"
+              aria-label="Nova medição de glicemia"
+              className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-teal-600 text-lg font-bold leading-none text-teal-600 transition-colors hover:bg-teal-50 dark:hover:bg-teal-950"
+            >
+              +
+            </Link>
+          </div>
+
           <GlucoseTrendChart
             data={readings}
             minMgdl={thresholds?.min_mgdl ?? null}
             maxMgdl={thresholds?.max_mgdl ?? null}
           />
+
+          {timeInRange ? (
+            <TimeInRangeBar {...timeInRange} />
+          ) : (
+            <Link
+              href="/configuracoes/limites"
+              className="text-sm font-medium text-teal-700 hover:underline dark:text-teal-400"
+            >
+              Configure seus limites para ver o tempo no alvo →
+            </Link>
+          )}
         </div>
       )}
     </div>
