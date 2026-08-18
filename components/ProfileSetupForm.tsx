@@ -11,7 +11,7 @@ export function ProfileSetupForm() {
   return (
     <form
       action={action}
-      className="flex flex-col gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-950"
+      className="flex flex-col gap-4 rounded-2xl bg-white p-6 shadow-sm dark:bg-zinc-900"
     >
       <h1 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
         Complete seu perfil

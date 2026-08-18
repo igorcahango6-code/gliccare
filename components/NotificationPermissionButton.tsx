@@ -37,7 +37,7 @@ export function NotificationPermissionButton() {
 
   if (needsIosInstall) {
     return (
-      <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-300">
+      <div className="rounded-2xl bg-amber-50 p-3 text-sm text-amber-800 shadow-sm dark:bg-amber-950 dark:text-amber-300">
         <p className="font-medium">No iPhone, adicione o GlicCare à Tela de Início para receber notificações:</p>
         <ol className="mt-2 list-decimal space-y-1 pl-4">
           <li>Toque no ícone de compartilhar (quadrado com seta) na barra do Safari.</li>
@@ -54,7 +54,7 @@ export function NotificationPermissionButton() {
   if (permission === "granted") {
     return (
       <div className="flex flex-col gap-2">
-        <p className="rounded-xl border border-teal-200 bg-teal-50 p-3 text-sm text-teal-800 dark:border-teal-900 dark:bg-teal-950 dark:text-teal-300">
+        <p className="rounded-2xl bg-teal-50 p-3 text-sm text-teal-800 shadow-sm dark:bg-teal-950 dark:text-teal-300">
           Notificações permitidas neste navegador.
         </p>
         <button
@@ -92,7 +92,7 @@ export function NotificationPermissionButton() {
 
   if (permission === "denied") {
     return (
-      <p className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-300">
+      <p className="rounded-2xl bg-amber-50 p-3 text-sm text-amber-800 shadow-sm dark:bg-amber-950 dark:text-amber-300">
         As notificações foram bloqueadas nas configurações do navegador.
         Ative-as manualmente para receber os lembretes.
       </p>

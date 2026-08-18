@@ -1,5 +1,8 @@
 import Link from "next/link";
 
+const cardLinkClass =
+  "rounded-2xl bg-white p-4 text-sm font-medium text-zinc-700 shadow-sm transition-shadow hover:shadow-md dark:bg-zinc-900 dark:text-zinc-300";
+
 export default async function ContaPage({
   searchParams,
 }: {
@@ -14,26 +17,20 @@ export default async function ContaPage({
       </h1>
 
       {senha === "1" && (
-        <p className="mb-2 rounded-xl border border-teal-200 bg-teal-50 p-3 text-sm text-teal-800 dark:border-teal-900 dark:bg-teal-950 dark:text-teal-300">
+        <p className="mb-2 rounded-2xl bg-teal-50 p-3 text-sm text-teal-800 shadow-sm dark:bg-teal-950 dark:text-teal-300">
           Senha alterada com sucesso.
         </p>
       )}
 
-      <Link
-        href="/configuracoes/conta/perfil"
-        className="rounded-xl border border-zinc-200 bg-white p-4 text-sm font-medium text-zinc-700 transition-colors hover:border-teal-600 hover:text-teal-700 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:text-teal-400"
-      >
+      <Link href="/configuracoes/conta/perfil" className={cardLinkClass}>
         Editar nome, foto e e-mail
       </Link>
-      <Link
-        href="/configuracoes/conta/senha"
-        className="rounded-xl border border-zinc-200 bg-white p-4 text-sm font-medium text-zinc-700 transition-colors hover:border-teal-600 hover:text-teal-700 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:text-teal-400"
-      >
+      <Link href="/configuracoes/conta/senha" className={cardLinkClass}>
         Trocar senha
       </Link>
       <Link
         href="/configuracoes/conta/excluir"
-        className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700 transition-colors hover:border-red-400 dark:border-red-900 dark:bg-red-950 dark:text-red-400"
+        className="rounded-2xl bg-red-50 p-4 text-sm font-medium text-red-700 shadow-sm transition-shadow hover:shadow-md dark:bg-red-950 dark:text-red-400"
       >
         Excluir conta
       </Link>

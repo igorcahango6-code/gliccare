@@ -8,7 +8,7 @@ export function ChangePasswordForm() {
   const [state, action, pending] = useActionState(updatePassword, undefined);
 
   return (
-    <form action={action} className="flex flex-col gap-4">
+    <form action={action} className="flex flex-col gap-4 rounded-2xl bg-white p-4 shadow-sm dark:bg-zinc-900">
       <TextField
         label="Senha atual"
         name="current_password"

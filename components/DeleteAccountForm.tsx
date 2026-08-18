@@ -19,7 +19,7 @@ export function DeleteAccountForm() {
           event.preventDefault();
         }
       }}
-      className="flex flex-col gap-4"
+      className="flex flex-col gap-4 rounded-2xl bg-white p-4 shadow-sm dark:bg-zinc-900"
     >
       <TextField
         label="Sua senha"

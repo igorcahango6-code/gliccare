@@ -19,7 +19,7 @@ export function ThresholdsForm({
   );
 
   return (
-    <form action={action} className="flex flex-col gap-4">
+    <form action={action} className="flex flex-col gap-4 rounded-2xl bg-white p-4 shadow-sm dark:bg-zinc-900">
       <TextField
         label="Limite mínimo (mg/dL) — abaixo disso é hipoglicemia"
         name="min_mgdl"

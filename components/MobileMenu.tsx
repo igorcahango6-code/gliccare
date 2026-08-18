@@ -28,7 +28,7 @@ export function MobileMenu({ items }: { items: NavItem[] }) {
             onClick={() => setOpen(false)}
             className="flex-1 bg-black/40"
           />
-          <div className="flex w-72 max-w-[80vw] flex-col overflow-y-auto bg-white dark:bg-zinc-950">
+          <div className="flex w-72 max-w-[80vw] flex-col overflow-y-auto bg-white dark:bg-zinc-900">
             <div className="flex items-center justify-between border-b border-zinc-200 px-4 py-3 dark:border-zinc-800">
               <div className="flex items-center gap-2">
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-sm font-bold text-white">

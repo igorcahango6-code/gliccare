@@ -21,7 +21,7 @@ export default function NovoMedicamentoPage() {
       <h1 className="mb-4 text-xl font-semibold text-zinc-900 dark:text-zinc-50">
         Novo medicamento
       </h1>
-      <form action={action} className="flex flex-col gap-4">
+      <form action={action} className="flex flex-col gap-4 rounded-2xl bg-white p-4 shadow-sm dark:bg-zinc-900">
         <TextField
           label="Nome do medicamento"
           name="medication_name"

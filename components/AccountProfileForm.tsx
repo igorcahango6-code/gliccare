@@ -22,7 +22,7 @@ export function AccountProfileForm({
   );
 
   return (
-    <form action={action} className="flex flex-col gap-4">
+    <form action={action} className="flex flex-col gap-4 rounded-2xl bg-white p-4 shadow-sm dark:bg-zinc-900">
       <AvatarPicker
         label="Foto de perfil"
         initialLetter={name}
