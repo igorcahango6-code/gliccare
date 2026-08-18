@@ -44,10 +44,10 @@ export default async function GraficosPage({
               <Link
                 key={p.dias}
                 href={`/graficos?dias=${p.dias}`}
-                className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
+                className={`rounded-full px-3 py-1 text-sm font-medium shadow-sm transition-colors ${
                   period.label === p.label
                     ? "bg-teal-600 text-white"
-                    : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800"
+                    : "bg-white text-zinc-600 hover:bg-zinc-50 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800"
                 }`}
               >
                 {p.label}
@@ -71,11 +71,11 @@ export default async function GraficosPage({
       )}
 
       {readings.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-zinc-300 p-6 text-center text-sm text-zinc-500 dark:border-zinc-700 dark:text-zinc-500">
+        <p className="rounded-2xl bg-white p-6 text-center text-sm text-zinc-500 shadow-sm dark:bg-zinc-900 dark:text-zinc-500">
           Nenhuma medição de glicemia nesse período.
         </p>
       ) : (
-        <div className="rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950">
+        <div className="rounded-2xl bg-white p-4 shadow-sm dark:bg-zinc-900">
           <GlucoseTrendChart
             data={readings}
             minMgdl={thresholds?.min_mgdl ?? null}

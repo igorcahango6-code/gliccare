@@ -2,39 +2,33 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import type { TimelineEntry } from "@/lib/queries/timeline";
+import { ENTRY_STYLES } from "@/lib/entryStyles";
 
-const ENTRY_META: Record<
-  TimelineEntry["entry_type"],
-  { icon: string; label: string; editHref: string }
-> = {
-  glucose: { icon: "🩸", label: "Glicemia", editHref: "/glicemia" },
-  insulin: { icon: "💉", label: "Insulina", editHref: "/insulina" },
-  meal: { icon: "🍽️", label: "Refeição", editHref: "/refeicoes" },
-  activity: { icon: "🚶", label: "Atividade física", editHref: "/atividades" },
-  oral_medication: {
-    icon: "💊",
-    label: "Medicamento",
-    editHref: "/medicamentos",
-  },
-  weight: { icon: "⚖️", label: "Peso", editHref: "/peso" },
-  blood_pressure: {
-    icon: "❤️",
-    label: "Pressão arterial",
-    editHref: "/pressao",
-  },
-  note: { icon: "📝", label: "Anotação", editHref: "/anotacoes" },
+const EDIT_HREF: Record<TimelineEntry["entry_type"], string> = {
+  glucose: "/glicemia",
+  insulin: "/insulina",
+  meal: "/refeicoes",
+  activity: "/atividades",
+  oral_medication: "/medicamentos",
+  weight: "/peso",
+  blood_pressure: "/pressao",
+  note: "/anotacoes",
 };
 
 export function TimelineItem({ entry }: { entry: TimelineEntry }) {
-  const meta = ENTRY_META[entry.entry_type];
+  const meta = ENTRY_STYLES[entry.entry_type];
 
   return (
     <li>
       <Link
-        href={`${meta.editHref}/${entry.id}`}
-        className="flex items-start gap-3 rounded-xl border border-zinc-200 bg-white p-3 transition-colors hover:border-teal-600 dark:border-zinc-800 dark:bg-zinc-950"
+        href={`${EDIT_HREF[entry.entry_type]}/${entry.id}`}
+        className="flex items-start gap-3 rounded-2xl bg-white p-3 shadow-sm transition-shadow hover:shadow-md dark:bg-zinc-900"
       >
-        <span className="text-xl leading-none">{meta.icon}</span>
+        <span
+          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg leading-none ${meta.badge}`}
+        >
+          {meta.icon}
+        </span>
         <div className="flex min-w-0 flex-1 flex-col">
           <div className="flex items-center justify-between gap-2">
             <span className="text-sm font-medium text-zinc-900 dark:text-zinc-50">

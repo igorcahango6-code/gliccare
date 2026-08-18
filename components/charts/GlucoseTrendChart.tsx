@@ -3,9 +3,9 @@
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import {
+  Area,
+  AreaChart,
   CartesianGrid,
-  Line,
-  LineChart,
   ReferenceLine,
   ResponsiveContainer,
   Tooltip,
@@ -34,7 +34,13 @@ export function GlucoseTrendChart({
   return (
     <div className="h-72 w-full sm:h-96">
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={chartData} margin={{ top: 8, right: 16, left: -16, bottom: 8 }}>
+        <AreaChart data={chartData} margin={{ top: 8, right: 16, left: -16, bottom: 8 }}>
+          <defs>
+            <linearGradient id="glucoseFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#0d9488" stopOpacity={0.35} />
+              <stop offset="100%" stopColor="#0d9488" stopOpacity={0} />
+            </linearGradient>
+          </defs>
           <CartesianGrid strokeDasharray="3 3" className="stroke-zinc-200 dark:stroke-zinc-800" />
           <XAxis
             dataKey="label"
@@ -63,11 +69,12 @@ export function GlucoseTrendChart({
               label={{ value: "Máx.", position: "insideTopLeft", fontSize: 11, fill: "#dc2626" }}
             />
           )}
-          <Line
+          <Area
             type="monotone"
             dataKey="value_mgdl"
             stroke="#0d9488"
-            strokeWidth={2}
+            strokeWidth={2.5}
+            fill="url(#glucoseFill)"
             dot={(props) => {
               const { cx, cy, payload, index } = props;
               const isLow = minMgdl != null && payload.value_mgdl < minMgdl;
@@ -86,7 +93,7 @@ export function GlucoseTrendChart({
               );
             }}
           />
-        </LineChart>
+        </AreaChart>
       </ResponsiveContainer>
     </div>
   );

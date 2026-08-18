@@ -4,11 +4,7 @@ import { ptBR } from "date-fns/locale";
 import { createClient } from "@/lib/supabase/server";
 import { getMyThresholds } from "@/lib/queries/thresholds";
 import { getAlertStatus } from "@/lib/utils/thresholds";
-
-const STATUS_STYLES: Record<string, string> = {
-  low: "border-blue-300 bg-blue-50 dark:border-blue-900 dark:bg-blue-950",
-  high: "border-red-300 bg-red-50 dark:border-red-900 dark:bg-red-950",
-};
+import { ENTRY_STYLES } from "@/lib/entryStyles";
 
 const STATUS_BADGE: Record<string, string> = {
   low: "bg-blue-600",
@@ -18,6 +14,11 @@ const STATUS_BADGE: Record<string, string> = {
 const STATUS_LABEL: Record<string, string> = {
   low: "Baixa",
   high: "Alta",
+};
+
+const STATUS_ACCENT: Record<string, string> = {
+  low: "border-l-4 border-l-blue-500",
+  high: "border-l-4 border-l-red-500",
 };
 
 export default async function GlicemiaPage() {
@@ -34,6 +35,7 @@ export default async function GlicemiaPage() {
   if (error) throw new Error(error.message);
 
   const hasThresholds = thresholds?.min_mgdl != null && thresholds?.max_mgdl != null;
+  const glucoseMeta = ENTRY_STYLES.glucose;
 
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-4">
@@ -43,7 +45,7 @@ export default async function GlicemiaPage() {
         </h1>
         <Link
           href="/glicemia/nova"
-          className="rounded-lg bg-teal-600 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-teal-700"
+          className="rounded-full bg-teal-600 px-4 py-1.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-teal-700"
         >
           + Nova
         </Link>
@@ -52,7 +54,7 @@ export default async function GlicemiaPage() {
       {!hasThresholds && (
         <Link
           href="/configuracoes/limites"
-          className="rounded-xl border border-amber-300 bg-amber-50 p-3 text-sm text-amber-800 transition-colors hover:border-amber-400 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-300"
+          className="rounded-2xl bg-amber-50 p-3 text-sm text-amber-800 shadow-sm transition-colors hover:bg-amber-100 dark:bg-amber-950 dark:text-amber-300"
         >
           Configure seus limites para receber alertas de glicemia alta ou
           baixa →
@@ -60,7 +62,7 @@ export default async function GlicemiaPage() {
       )}
 
       {readings.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-zinc-300 p-6 text-center text-sm text-zinc-500 dark:border-zinc-700 dark:text-zinc-500">
+        <p className="rounded-2xl bg-white p-6 text-center text-sm text-zinc-500 shadow-sm dark:bg-zinc-900 dark:text-zinc-500">
           Nenhuma medição registrada ainda.
         </p>
       ) : (
@@ -77,12 +79,15 @@ export default async function GlicemiaPage() {
               <li key={reading.id}>
                 <Link
                   href={`/glicemia/${reading.id}`}
-                  className={`flex items-center justify-between rounded-xl border p-3 transition-colors hover:border-teal-600 ${
-                    highlight
-                      ? STATUS_STYLES[status]
-                      : "border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950"
+                  className={`flex items-center gap-3 rounded-2xl bg-white p-3 shadow-sm transition-shadow hover:shadow-md dark:bg-zinc-900 ${
+                    highlight ? STATUS_ACCENT[status] : ""
                   }`}
                 >
+                  <span
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg leading-none ${glucoseMeta.badge}`}
+                  >
+                    {glucoseMeta.icon}
+                  </span>
                   <div className="flex min-w-0 flex-col">
                     <div className="flex items-center gap-2">
                       <span className="text-base font-semibold text-zinc-900 dark:text-zinc-50">

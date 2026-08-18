@@ -100,10 +100,10 @@ export default async function RelatorioPage({
               <Link
                 key={p.dias}
                 href={`/relatorio?dias=${p.dias}`}
-                className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
+                className={`rounded-full px-3 py-1 text-sm font-medium shadow-sm transition-colors ${
                   period.label === p.label
                     ? "bg-teal-600 text-white"
-                    : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800"
+                    : "bg-white text-zinc-600 hover:bg-zinc-50 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800"
                 }`}
               >
                 {p.label}
@@ -142,7 +142,7 @@ export default async function RelatorioPage({
       </div>
 
       {glucoseEntries.length > 0 && (
-        <div className="rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950 print:border-zinc-300">
+        <div className="rounded-2xl bg-white p-4 shadow-sm dark:bg-zinc-900 print:rounded-xl print:border print:border-zinc-300 print:shadow-none">
           <GlucoseTrendChart
             data={glucoseEntries.map((e) => ({
               measured_at: e.occurred_at,
@@ -154,7 +154,7 @@ export default async function RelatorioPage({
         </div>
       )}
 
-      <div className="rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950 print:border-zinc-300">
+      <div className="rounded-2xl bg-white p-4 shadow-sm dark:bg-zinc-900 print:rounded-xl print:border print:border-zinc-300 print:shadow-none">
         <h2 className="mb-2 text-sm font-semibold text-zinc-900 dark:text-zinc-50">
           Resumo do período
         </h2>
@@ -168,7 +168,7 @@ export default async function RelatorioPage({
       </div>
 
       {glucoseEntries.length > 0 && (
-        <div className="overflow-x-auto rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950 print:border-zinc-300">
+        <div className="overflow-x-auto rounded-2xl bg-white shadow-sm dark:bg-zinc-900 print:rounded-xl print:border print:border-zinc-300 print:shadow-none">
           <table className="w-full text-left text-sm">
             <thead>
               <tr className="border-b border-zinc-200 text-zinc-500 dark:border-zinc-800 dark:text-zinc-500">
@@ -204,7 +204,7 @@ export default async function RelatorioPage({
 
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-950 print:border-zinc-300">
+    <div className="rounded-2xl bg-white p-3 shadow-sm dark:bg-zinc-900 print:rounded-xl print:border print:border-zinc-300 print:shadow-none">
       <p className="text-xs text-zinc-500 dark:text-zinc-500">{label}</p>
       <p className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">{value}</p>
     </div>
