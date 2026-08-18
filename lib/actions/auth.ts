@@ -147,6 +147,13 @@ export async function updateAccountProfile(
   const birthDate = String(formData.get("birth_date") ?? "").trim();
   const email = String(formData.get("email") ?? "").trim();
   const avatarFile = formData.get("avatar");
+  const gender = String(formData.get("gender") ?? "").trim();
+  const weightKg = String(formData.get("weight_kg") ?? "").trim();
+  const heightCm = String(formData.get("height_cm") ?? "").trim();
+  const diabetesType = String(formData.get("diabetes_type") ?? "").trim();
+  const diagnosisYear = String(formData.get("diagnosis_year") ?? "").trim();
+  const state = String(formData.get("state") ?? "").trim();
+  const city = String(formData.get("city") ?? "").trim();
 
   if (!name || !birthDate || !email) {
     return { error: "Preencha nome, data de nascimento e e-mail." };
@@ -180,7 +187,18 @@ export async function updateAccountProfile(
 
   const { error } = await supabase.auth.updateUser({
     ...(emailChanged ? { email } : {}),
-    data: { full_name: name, birth_date: birthDate, avatar_url: avatarUrl },
+    data: {
+      full_name: name,
+      birth_date: birthDate,
+      avatar_url: avatarUrl,
+      gender: gender || null,
+      weight_kg: weightKg || null,
+      height_cm: heightCm || null,
+      diabetes_type: diabetesType || null,
+      diagnosis_year: diagnosisYear || null,
+      state: state || null,
+      city: city || null,
+    },
   });
 
   if (error) return { error: error.message };

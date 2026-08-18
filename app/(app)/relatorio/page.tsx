@@ -8,6 +8,7 @@ import { PrintButton } from "@/components/PrintButton";
 import { MonthPicker } from "@/components/MonthPicker";
 import { resolvePeriod } from "@/lib/utils/period";
 import { calculateAge } from "@/lib/utils/age";
+import { DIABETES_TYPE_LABELS } from "@/lib/diabetesTypes";
 import type { TimelineEntry } from "@/lib/queries/timeline";
 
 const PERIODS = [
@@ -122,6 +123,8 @@ export default async function RelatorioPage({
           Relatório GlicCare — {user?.user_metadata?.full_name ?? user?.email}
           {user?.user_metadata?.birth_date &&
             ` · ${calculateAge(user.user_metadata.birth_date)} anos`}
+          {user?.user_metadata?.diabetes_type &&
+            ` · ${DIABETES_TYPE_LABELS[user.user_metadata.diabetes_type] ?? ""}`}
         </h1>
         <p className="text-sm capitalize text-zinc-600">
           Período: {period.label} · Gerado em{" "}

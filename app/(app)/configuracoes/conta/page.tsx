@@ -23,7 +23,7 @@ export default async function ContaPage({
       )}
 
       <Link href="/configuracoes/conta/perfil" className={cardLinkClass}>
-        Editar nome, foto e e-mail
+        Editar perfil
       </Link>
       <Link href="/configuracoes/conta/senha" className={cardLinkClass}>
         Trocar senha
